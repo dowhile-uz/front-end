@@ -10,8 +10,11 @@ export default defineConfig({
 		}),
 		react({}),
 	],
-	ssr: {
-		noExternal: ["@mui/material"],
+	server: {
+		allowedHosts: [".dowhile.uz"],
+	},
+	preview: {
+		allowedHosts: [".dowhile.uz"],
 	},
 	resolve: {
 		alias: {
