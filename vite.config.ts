@@ -1,11 +1,18 @@
-// @ts-expect-error
 import { URL, fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import vike from "vike/plugin";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-	plugins: [vike({}), react({})],
+	plugins: [
+		vike({
+			prerender: true,
+		}),
+		react({}),
+	],
+	ssr: {
+		noExternal: ["@mui/material"],
+	},
 	resolve: {
 		alias: {
 			"@app": fileURLToPath(new URL("./app", import.meta.url)),
