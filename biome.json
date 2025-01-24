@@ -14,5 +14,16 @@
 	},
 	"files": {
 		"ignore": ["dist/**", "*.js", "*.cjs", "*.mjs", "*.spec.ts"]
-	}
+	},
+	"overrides": [
+		{
+			"include": ["./widgets/editor/**"],
+			"linter": {
+				"enabled": false
+			},
+			"formatter": {
+				"enabled": false
+			}
+		}
+	]
 }
