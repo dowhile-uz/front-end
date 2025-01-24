@@ -1,9 +1,6 @@
-import * as Dropdown from "@radix-ui/react-dropdown-menu";
+import { Button, ListItemText, Menu, MenuItem } from "@mui/material";
 import { useCallback } from "react";
-import { DropdownButton, DropdownCategoryTitle } from "../extra/dropdown";
-import { Icon } from "../extra/icon";
-import { Surface } from "../extra/surface";
-import { Toolbar } from "../extra/toolbar";
+import React from "react";
 
 const FONT_FAMILY_GROUPS = [
 	{
@@ -44,6 +41,17 @@ export const FontFamilyPicker = ({
 	onChange,
 	value,
 }: FontFamilyPickerProps) => {
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const open = Boolean(anchorEl);
+
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	const currentValue = FONT_FAMILIES.find((size) => size.value === value);
 	const currentFontLabel = currentValue?.label.split(" ")[0] || "Inter";
 
@@ -53,34 +61,52 @@ export const FontFamilyPicker = ({
 	);
 
 	return (
-		<Dropdown.Root>
-			<Dropdown.Trigger asChild>
-				<Toolbar.Button active={!!currentValue?.value}>
-					{currentFontLabel}
-					<Icon name="ChevronDown" className="w-2 h-2" />
-				</Toolbar.Button>
-			</Dropdown.Trigger>
-			<Dropdown.Content asChild>
-				<Surface className="flex flex-col gap-1 px-2 py-4">
-					{FONT_FAMILY_GROUPS.map((group) => (
-						<div
-							className="mt-2.5 first:mt-0 gap-0.5 flex flex-col"
-							key={group.label}
+		<>
+			<Button
+				aria-haspopup="true"
+				aria-expanded={open ? 'true' : undefined}
+				onClick={handleClick}
+			// active={!!currentValue?.value}
+			>
+				{currentFontLabel}
+			</Button>
+			<Menu
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'left',
+				}}
+				sx={{ zIndex: 10000 }}
+			>
+				{FONT_FAMILY_GROUPS.map((group) => (
+					<>
+						<MenuItem
+							disabled={true}
 						>
-							<DropdownCategoryTitle>{group.label}</DropdownCategoryTitle>
-							{group.options.map((font) => (
-								<DropdownButton
-									isActive={value === font.value}
-									onClick={selectFont(font.value)}
-									key={`${font.label}_${font.value}`}
+							<ListItemText>
+								{group.label}
+							</ListItemText>
+						</MenuItem>
+						{
+							group.options.map((font) => (
+								<MenuItem
+									key={font.value}
+									onClick={
+										selectFont(font.value)
+									}
+									selected={value == font.value}
 								>
-									<span style={{ fontFamily: font.value }}>{font.label}</span>
-								</DropdownButton>
-							))}
-						</div>
-					))}
-				</Surface>
-			</Dropdown.Content>
-		</Dropdown.Root>
-	);
+									<ListItemText>
+										<span style={{ fontFamily: font.value }}>{font.label}</span>
+									</ListItemText>
+								</MenuItem>
+							))
+						}
+					</>
+				))}
+			</Menu>
+		</>
+	)
 };

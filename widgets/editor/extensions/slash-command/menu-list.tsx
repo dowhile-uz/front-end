@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { DropdownButton } from "../../ui/extra/dropdown";
-import { Icon } from "../../ui/extra/icon";
-import { Surface } from "../../ui/extra/surface";
-import { CommandButton } from "./command-button";
+import { Divider, List, ListItemButton, ListItemText, ListSubheader } from "@mui/material";
+// import { CommandButton } from "./command-button";
 import type { Command, MenuListProps } from "./types";
 
 export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
@@ -120,42 +118,52 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 	}
 
 	return (
-		<Surface
-			ref={scrollContainer}
-			className="text-black max-h-[min(80vh,24rem)] overflow-auto flex-wrap mb-8 p-2"
+		<List
+			sx={{
+				width: '100%',
+				maxWidth: 360,
+				bgcolor: 'background.paper',
+				position: 'relative',
+				overflow: 'auto',
+				maxHeight: 300,
+				'& ul': { padding: 0 },
+			}}
+			subheader={<li />}
 		>
-			<div className="grid grid-cols-1 gap-0.5">
-				{props.items.map((group, groupIndex: number) => (
-					<React.Fragment key={`${group.title}-wrapper`}>
-						<div
-							className="text-neutral-500 text-[0.65rem] col-[1/-1] mx-2 mt-4 font-semibold tracking-wider select-none uppercase first:mt-0.5"
-							key={`${group.title}`}
-						>
-							{group.title}
-						</div>
-						{group.commands.map((command: Command, commandIndex: number) => (
-							<DropdownButton
-								key={`${command.label}`}
-								ref={
-									selectedGroupIndex === groupIndex &&
-									selectedCommandIndex === commandIndex
-										? activeItem
-										: null
-								}
-								isActive={
-									selectedGroupIndex === groupIndex &&
-									selectedCommandIndex === commandIndex
-								}
-								onClick={createCommandClickHandler(groupIndex, commandIndex)}
-							>
-								<Icon name={command.iconName} className="mr-1" />
-								{command.label}
-							</DropdownButton>
-						))}
-					</React.Fragment>
-				))}
-			</div>
-		</Surface>
+			{props.items.map((group, groupIndex: number) => (
+				<>
+					{groupIndex != 0 && <Divider key={`${group.title}-divider`} />}
+					<li area-label={group.title} key={`${group.title}-wrapper`}>
+						<ul>
+							<ListSubheader>
+								{group.title}
+							</ListSubheader>
+							{group.commands.map((command: Command, commandIndex: number) => (
+								<ListItemButton
+									key={`${command.label}`}
+									// ref={
+									// 	selectedGroupIndex === groupIndex &&
+									// 		selectedCommandIndex === commandIndex
+									// 		? activeItem
+									// 		: null
+									// }
+									onClick={createCommandClickHandler(groupIndex, commandIndex)}
+									selected={
+										selectedGroupIndex === groupIndex &&
+										selectedCommandIndex === commandIndex
+									}
+								>
+									{/* <ListItemIcon> */}
+									{/* 	<InboxIcon /> */}
+									{/* </ListItemIcon> */}
+									<ListItemText primary={command.label} />
+								</ListItemButton>
+							))}
+						</ul>
+					</li>
+				</>
+			))}
+		</List>
 	);
 });
 

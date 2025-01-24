@@ -16,6 +16,7 @@
 		"@fontsource/material-icons": "^5.1.1",
 		"@fontsource/roboto": "^5.1.1",
 		"@hocuspocus/provider": "^2.15.0",
+		"@mui-symbols-material/w400": "^0.4.1",
 		"@mui/icons-material": "^6.4.1",
 		"@mui/material": "^6.4.1",
 		"@mui/x-charts": "^7.24.0",
@@ -62,6 +63,8 @@
 		"react-colorful": "^5.6.1",
 		"react-dom": "^18.3.1",
 		"vike-react": "^0.5.11",
+		"y-prosemirror": "^1.2.15",
+		"y-protocols": "^1.0.6",
 		"yjs": "^13.6.23"
 	},
 	"devDependencies": {

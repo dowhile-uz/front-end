@@ -1,3 +1,4 @@
+import { FormatH1Outlined, FormatH2Outlined, FormatH3Outlined, FormatListBulletedAddOutlined, FormatListBulletedOutlined, FormatListNumberedOutlined, FormatParagraphOutlined } from "@mui-symbols-material/w400"
 import { type Editor, useEditorState } from "@tiptap/react";
 import type { ContentPickerOptions } from "../ui/menus/content-type-picker";
 
@@ -11,7 +12,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				id: "hierarchy",
 			},
 			{
-				icon: "Pilcrow",
+				icon: <FormatParagraphOutlined />,
 				onClick: () =>
 					ctx.editor
 						.chain()
@@ -31,7 +32,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				type: "option",
 			},
 			{
-				icon: "Heading1",
+				icon: <FormatH1Outlined />,
 				onClick: () =>
 					ctx.editor
 						.chain()
@@ -47,7 +48,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				type: "option",
 			},
 			{
-				icon: "Heading2",
+				icon: <FormatH2Outlined />,
 				onClick: () =>
 					ctx.editor
 						.chain()
@@ -63,7 +64,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				type: "option",
 			},
 			{
-				icon: "Heading3",
+				icon: <FormatH3Outlined />,
 				onClick: () =>
 					ctx.editor
 						.chain()
@@ -84,7 +85,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				id: "lists",
 			},
 			{
-				icon: "List",
+				icon: <FormatListBulletedOutlined />,
 				onClick: () => ctx.editor.chain().focus().toggleBulletList().run(),
 				id: "bulletList",
 				disabled: () => !ctx.editor.can().toggleBulletList(),
@@ -93,7 +94,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				type: "option",
 			},
 			{
-				icon: "ListOrdered",
+				icon: <FormatListNumberedOutlined />,
 				onClick: () => ctx.editor.chain().focus().toggleOrderedList().run(),
 				id: "orderedList",
 				disabled: () => !ctx.editor.can().toggleOrderedList(),
@@ -102,7 +103,7 @@ export const useTextmenuContentTypes = (editor: Editor) => {
 				type: "option",
 			},
 			{
-				icon: "ListTodo",
+				icon: <FormatListBulletedAddOutlined />,
 				onClick: () => ctx.editor.chain().focus().toggleTaskList().run(),
 				id: "todoList",
 				disabled: () => !ctx.editor.can().toggleTaskList(),

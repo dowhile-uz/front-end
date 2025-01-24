@@ -1,10 +1,7 @@
-import * as Dropdown from "@radix-ui/react-dropdown-menu";
-// import { icons } from 'lucide-react'
-import { useMemo } from "react";
-import { DropdownButton, DropdownCategoryTitle } from "../extra/dropdown";
-import { Icon } from "../extra/icon";
-import { Surface } from "../extra/surface";
-import { Toolbar } from "../extra/toolbar";
+import { FormatParagraphOutlined } from "@mui-symbols-material/w400";
+import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import React from "react";
+import { ToolbarButton } from './toolbar-button'
 
 export type ContentTypePickerOption = {
 	label: string;
@@ -13,8 +10,7 @@ export type ContentTypePickerOption = {
 	disabled: () => boolean;
 	isActive: () => boolean;
 	onClick: () => void;
-	icon: string;
-	// icon: keyof typeof icons
+	icon: React.ReactNode;
 };
 
 export type ContentTypePickerCategory = {
@@ -39,53 +35,79 @@ const isCategory = (
 ): option is ContentTypePickerCategory => option.type === "category";
 
 export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
-	const activeItem = useMemo(
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const open = Boolean(anchorEl);
+
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const activeItem = React.useMemo(
 		() =>
 			options.find((option) => option.type === "option" && option.isActive()),
 		[options],
 	);
 
 	return (
-		<Dropdown.Root>
-			<Dropdown.Trigger asChild>
-				<Toolbar.Button
-					active={activeItem?.id !== "paragraph" && !!activeItem?.type}
-				>
-					<Icon
-						name={
-							(activeItem?.type === "option" && activeItem.icon) || "Pilcrow"
-						}
-					/>
-					<Icon name="ChevronDown" className="w-2 h-2" />
-				</Toolbar.Button>
-			</Dropdown.Trigger>
-			<Dropdown.Content asChild>
-				<Surface className="flex flex-col gap-1 px-2 py-4">
-					{options.map((option) => {
-						if (isOption(option)) {
-							return (
-								<DropdownButton
-									key={option.id}
-									onClick={option.onClick}
-									isActive={option.isActive()}
-								>
-									<Icon name={option.icon} className="w-4 h-4 mr-1" />
+		<>
+			<ToolbarButton
+				aria-haspopup="true"
+				aria-expanded={open ? 'true' : undefined}
+				onClick={handleClick}
+			// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
+			>
+				{(activeItem?.type === "option" && activeItem.icon) || <FormatParagraphOutlined />}
+				{/* <Icon name="ChevronDown" className="w-2 h-2" /> */}
+			</ToolbarButton>
+			<Menu
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'left',
+				}}
+				sx={{ zIndex: 10000 }}
+			>
+				{options.map((option) => {
+					if (isOption(option)) {
+						return (
+							<MenuItem
+								key={option.id}
+								onClick={() => {
+									option.onClick()
+									handleClose()
+								}}
+								selected={option.isActive()}
+							>
+								<ListItemIcon>
+									{option.icon}
+								</ListItemIcon>
+								<ListItemText>
+
 									{option.label}
-								</DropdownButton>
-							);
-						}
-						if (isCategory(option)) {
-							return (
-								<div className="mt-2 first:mt-0" key={option.id}>
-									<DropdownCategoryTitle key={option.id}>
-										{option.label}
-									</DropdownCategoryTitle>
-								</div>
-							);
-						}
-					})}
-				</Surface>
-			</Dropdown.Content>
-		</Dropdown.Root>
-	);
+								</ListItemText>
+							</MenuItem>
+						);
+					}
+					if (isCategory(option)) {
+						return (
+							<MenuItem
+								key={option.id}
+								disabled={true}
+							>
+								<ListItemText>
+									{option.label}
+								</ListItemText>
+							</MenuItem>
+						);
+					}
+				})}
+			</Menu>
+		</>
+	)
 };

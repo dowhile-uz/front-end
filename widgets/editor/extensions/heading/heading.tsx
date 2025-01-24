@@ -1,6 +1,8 @@
+import { Typography } from "@mui/material";
 import { mergeAttributes } from "@tiptap/core";
 import TiptapHeading from "@tiptap/extension-heading";
 import type { Level } from "@tiptap/extension-heading";
+import { NodeViewContent, ReactNodeViewRenderer } from "@tiptap/react";
 
 export const Heading = TiptapHeading.extend({
 	renderHTML({ node, HTMLAttributes }) {
@@ -13,6 +15,15 @@ export const Heading = TiptapHeading.extend({
 			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
 			0,
 		];
+	},
+	addNodeView() {
+		return ReactNodeViewRenderer((props) => {
+			return <Typography
+				variant={`h${props.node.attrs.level}` as "h1"}
+			>
+				<NodeViewContent />
+			</Typography>
+		})
 	},
 });
 

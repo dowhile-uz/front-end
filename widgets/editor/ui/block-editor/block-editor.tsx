@@ -5,7 +5,7 @@ import { LinkMenu } from "../menus/link-menu";
 
 import { useBlockEditor } from "../../hooks/use-block-editor";
 
-import "../../styles/index.css";
+// import "../../styles/index.css";
 
 import type { TiptapCollabProvider } from "@hocuspocus/provider";
 import type * as Y from "yjs";
