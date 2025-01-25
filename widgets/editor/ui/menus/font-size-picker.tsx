@@ -1,11 +1,6 @@
 import { Button, ListItemText, Menu, MenuItem } from "@mui/material";
-import * as Dropdown from "@radix-ui/react-dropdown-menu";
-import { useCallback } from "react";
+import { Popover } from "@shared/popover";
 import React from "react";
-import { DropdownButton, DropdownCategoryTitle } from "../extra/dropdown";
-import { Icon } from "../extra/icon";
-import { Surface } from "../extra/surface";
-import { Toolbar } from "../extra/toolbar";
 
 const FONT_SIZES = [
 	{ label: "Smaller", value: "12px" },
@@ -21,41 +16,30 @@ export type FontSizePickerProps = {
 };
 
 export const FontSizePicker = ({ onChange, value }: FontSizePickerProps) => {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
-
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
 	const currentValue = FONT_SIZES.find((size) => size.value === value);
 	const currentSizeLabel = currentValue?.label.split(" ")[0] || "Medium";
 
-	const selectSize = useCallback(
+	const selectSize = React.useCallback(
 		(size: string) => () => onChange(size),
 		[onChange],
 	);
 
 	return (
-		<>
-			<Button
+		<Popover
+			trigger={({ open, handleClick }) => <Button
 				aria-haspopup="true"
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 			// active={!!currentValue?.value}
 			>
 				{currentSizeLabel}
-			</Button>
-			<Menu
+			</Button>}
+			popover={({ anchorEl, open, handleClose }) => <Menu
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleClose}
 				anchorOrigin={{
-					vertical: 'top',
+					vertical: 'bottom',
 					horizontal: 'left',
 				}}
 				sx={{ zIndex: 10000 }}
@@ -71,22 +55,7 @@ export const FontSizePicker = ({ onChange, value }: FontSizePickerProps) => {
 						</ListItemText>
 					</MenuItem>
 				))}
-			</Menu>
-		</>
+			</Menu>}
+		/>
 	)
-
-	return (
-		<Dropdown.Root>
-			<Dropdown.Trigger asChild>
-				<Toolbar.Button active={!!currentValue?.value}>
-					{currentSizeLabel}
-					<Icon name="ChevronDown" className="w-2 h-2" />
-				</Toolbar.Button>
-			</Dropdown.Trigger>
-			<Dropdown.Content asChild>
-				<Surface className="flex flex-col gap-1 px-2 py-4">
-				</Surface>
-			</Dropdown.Content>
-		</Dropdown.Root>
-	);
 };

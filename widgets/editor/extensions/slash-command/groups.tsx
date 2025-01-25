@@ -1,3 +1,4 @@
+import { CodeBlocksOutlined, FormatH1Outlined, FormatH2Outlined, FormatH3Outlined, FormatListBulletedAddOutlined, FormatListBulletedOutlined, FormatListNumberedOutlined, FormatQuoteOutlined, ImageOutlined, RemoveOutlined, TableOutlined, TocOutlined, ViewColumn2Outlined } from "@mui-symbols-material/w400";
 import type { Group } from "./types";
 
 export const GROUPS: Group[] = [
@@ -8,7 +9,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "heading1",
 				label: "Heading 1",
-				iconName: "Heading1",
+				icon: <FormatH1Outlined />,
 				description: "High priority section title",
 				aliases: ["h1"],
 				action: (editor) => {
@@ -18,7 +19,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "heading2",
 				label: "Heading 2",
-				iconName: "Heading2",
+				icon: <FormatH2Outlined />,
 				description: "Medium priority section title",
 				aliases: ["h2"],
 				action: (editor) => {
@@ -28,7 +29,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "heading3",
 				label: "Heading 3",
-				iconName: "Heading3",
+				icon: <FormatH3Outlined />,
 				description: "Low priority section title",
 				aliases: ["h3"],
 				action: (editor) => {
@@ -38,7 +39,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "bulletList",
 				label: "Bullet List",
-				iconName: "List",
+				icon: <FormatListBulletedOutlined />,
 				description: "Unordered list of items",
 				aliases: ["ul"],
 				action: (editor) => {
@@ -48,7 +49,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "numberedList",
 				label: "Numbered List",
-				iconName: "ListOrdered",
+				icon: <FormatListNumberedOutlined />,
 				description: "Ordered list of items",
 				aliases: ["ol"],
 				action: (editor) => {
@@ -58,7 +59,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "taskList",
 				label: "Task List",
-				iconName: "ListTodo",
+				icon: <FormatListBulletedAddOutlined />,
 				description: "Task list with todo items",
 				aliases: ["todo"],
 				action: (editor) => {
@@ -78,7 +79,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "blockquote",
 				label: "Blockquote",
-				iconName: "Quote",
+				icon: <FormatQuoteOutlined />,
 				description: "Element for quoting",
 				action: (editor) => {
 					editor.chain().focus().setBlockquote().run();
@@ -87,7 +88,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "codeBlock",
 				label: "Code Block",
-				iconName: "SquareCode",
+				icon: <CodeBlocksOutlined />,
 				description: "Code block with syntax highlighting",
 				shouldBeHidden: (editor) => editor.isActive("columns"),
 				action: (editor) => {
@@ -103,7 +104,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "table",
 				label: "Table",
-				iconName: "Table",
+				icon: <TableOutlined />,
 				description: "Insert a table",
 				shouldBeHidden: (editor) => editor.isActive("columns"),
 				action: (editor) => {
@@ -117,7 +118,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "image",
 				label: "Image",
-				iconName: "Image",
+				icon: <ImageOutlined />,
 				description: "Insert an image",
 				aliases: ["img"],
 				action: (editor) => {
@@ -127,7 +128,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "columns",
 				label: "Columns",
-				iconName: "Columns2",
+				icon: <ViewColumn2Outlined />,
 				description: "Add two column content",
 				aliases: ["cols"],
 				shouldBeHidden: (editor) => editor.isActive("columns"),
@@ -143,7 +144,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "horizontalRule",
 				label: "Horizontal Rule",
-				iconName: "Minus",
+				icon: <RemoveOutlined />,
 				description: "Insert a horizontal divider",
 				aliases: ["hr"],
 				action: (editor) => {
@@ -153,7 +154,7 @@ export const GROUPS: Group[] = [
 			{
 				name: "toc",
 				label: "Table of Contents",
-				iconName: "Book",
+				icon: <TocOutlined />,
 				aliases: ["outline"],
 				description: "Insert a table of contents",
 				shouldBeHidden: (editor) => editor.isActive("columns"),

@@ -1,5 +1,5 @@
-import { memo, useCallback } from "react";
-import { cn } from "../../utils";
+import { Box, IconButton } from "@mui/material";
+import React from "react";
 
 export type ColorButtonProps = {
 	color?: string;
@@ -7,32 +7,24 @@ export type ColorButtonProps = {
 	onColorChange?: (color: string) => void; // eslint-disable-line no-unused-vars
 };
 
-export const ColorButton = memo(
-	({ color, active, onColorChange }: ColorButtonProps) => {
-		const wrapperClassName = cn(
-			"flex items-center justify-center px-1.5 py-1.5 rounded group",
-			!active && "hover:bg-neutral-100",
-			active && "bg-neutral-100",
-		);
-		const bubbleClassName = cn(
-			"w-4 h-4 rounded bg-slate-100 shadow-sm ring-offset-2 ring-current",
-			!active && "hover:ring-1",
-			active && "ring-1",
-		);
-
-		const handleClick = useCallback(() => {
+export const ColorButton = React.memo(
+	({ color, onColorChange }: ColorButtonProps) => {
+		const handleClick = React.useCallback(() => {
 			if (onColorChange) {
 				onColorChange(color || "");
 			}
 		}, [onColorChange, color]);
 
 		return (
-			<button onClick={handleClick} className={wrapperClassName}>
-				<div
-					style={{ backgroundColor: color, color: color }}
-					className={bubbleClassName}
+			<IconButton
+				size="small"
+				onClick={handleClick}
+				sx={{ p: 1 }}
+			>
+				<Box
+					sx={{ backgroundColor: color, color: color, height: "100%", width: "100%", borderRadius: 1 }}
 				/>
-			</button>
+			</IconButton>
 		);
 	},
 );

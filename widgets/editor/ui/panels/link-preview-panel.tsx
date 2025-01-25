@@ -1,7 +1,6 @@
-import { Icon } from "../extra/icon";
-import { Surface } from "../extra/surface";
-import { Toolbar } from "../extra/toolbar";
-import Tooltip from "../extra/tooltip";
+import { DeleteOutlined, EditOutlined } from "@mui-symbols-material/w400";
+import { Card, Divider, Link, Paper, dividerClasses } from "@mui/material";
+import { ToolbarButton } from "@shared/toolbar-button";
 
 export type LinkPreviewPanelProps = {
 	url: string;
@@ -16,26 +15,36 @@ export const LinkPreviewPanel = ({
 }: LinkPreviewPanelProps) => {
 	const sanitizedLink = url?.startsWith("javascript:") ? "" : url;
 	return (
-		<Surface className="flex items-center gap-2 p-2">
-			<a
+		<Paper
+			variant="outlined"
+			sx={{
+				display: 'flex',
+				alignItems: 'center',
+				bgcolor: 'background.paper',
+				color: 'text.secondary',
+				gap: 1,
+				paddingTop: 1,
+				paddingBottom: 1,
+				paddingLeft: 2,
+				paddingRight: 2,
+				[`& .${dividerClasses.root}`]: {
+					mx: 0.5,
+				},
+			}}>
+			<Link
 				href={sanitizedLink}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="text-sm underline break-all"
 			>
 				{url}
-			</a>
-			<Toolbar.Divider />
-			<Tooltip title="Edit link">
-				<Toolbar.Button onClick={onEdit}>
-					<Icon name="Pen" />
-				</Toolbar.Button>
-			</Tooltip>
-			<Tooltip title="Remove link">
-				<Toolbar.Button onClick={onClear}>
-					<Icon name="Trash2" />
-				</Toolbar.Button>
-			</Tooltip>
-		</Surface>
+			</Link>
+			<Divider orientation="vertical" flexItem />
+			<ToolbarButton title="EdirLink" onClick={onEdit}>
+				<EditOutlined />
+			</ToolbarButton>
+			<ToolbarButton title="Remove link" onClick={onClear}>
+				<DeleteOutlined />
+			</ToolbarButton>
+		</Paper>
 	);
 };

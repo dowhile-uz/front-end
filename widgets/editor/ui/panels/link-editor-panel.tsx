@@ -1,8 +1,5 @@
+import { Box, Button, Card, Checkbox, FormControlLabel, Paper, TextField } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import { Button } from "../extra/button";
-import { Icon } from "../extra/icon";
-import { Surface } from "../extra/surface";
-import { Toggle } from "../extra/toggle";
 
 export type LinkEditorPanelProps = {
 	initialUrl?: string;
@@ -27,8 +24,7 @@ export const useLinkEditorState = ({
 	const isValidUrl = useMemo(() => /^(\S+):(\/\/)?\S+$/.test(url), [url]);
 
 	const handleSubmit = useCallback(
-		(e: React.FormEvent) => {
-			e.preventDefault();
+		() => {
 			if (isValidUrl) {
 				onSetLink(url, openInNewTab);
 			}
@@ -58,37 +54,39 @@ export const LinkEditorPanel = ({
 		initialUrl,
 	});
 
-	return (
-		<Surface className="p-2">
-			<form onSubmit={state.handleSubmit} className="flex items-center gap-2">
-				<label className="flex items-center gap-2 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 cursor-text">
-					<Icon name="Link" className="flex-none text-black dark:text-white" />
-					<input
-						type="url"
-						className="flex-1 bg-transparent outline-none min-w-[12rem] text-black text-sm dark:text-white"
-						placeholder="Enter URL"
-						value={state.url}
-						onChange={state.onChange}
-					/>
-				</label>
-				<Button
-					variant="primary"
-					buttonSize="small"
-					type="submit"
-					disabled={!state.isValidUrl}
-				>
-					Set Link
-				</Button>
-			</form>
-			<div className="mt-3">
-				<label className="flex items-center justify-start gap-2 text-sm font-semibold cursor-pointer select-none text-neutral-500 dark:text-neutral-400">
-					Open in new tab
-					<Toggle
-						active={state.openInNewTab}
-						onChange={state.setOpenInNewTab}
-					/>
-				</label>
-			</div>
-		</Surface>
-	);
+	const isInvalidURL = state.url.length > 0 && !state.isValidUrl
+
+	return <Paper
+		variant="outlined"
+		sx={{
+			display: 'flex',
+			flexDirection: "column",
+			bgcolor: 'background.paper',
+			color: 'text.secondary',
+			gap: 1,
+			padding: 2,
+			paddingBottom: 1
+		}}>
+		<Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+			<TextField
+				error={isInvalidURL}
+				label="Enter URL"
+				variant="outlined"
+				size="small"
+				value={state.url}
+				onChange={(event) => state.setUrl(event.target.value)}
+				helperText={isInvalidURL ? "Invalid URL" : " "}
+			/>
+			<Button onClick={state.handleSubmit}>Set Link</Button>
+		</Box>
+		<FormControlLabel
+			control={
+				<Checkbox
+					checked={state.openInNewTab}
+					onChange={() => state.setOpenInNewTab(!state.openInNewTab)}
+				/>
+			}
+			label="Open in new tab"
+		/>
+	</Paper>
 };

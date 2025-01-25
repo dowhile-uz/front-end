@@ -1,6 +1,5 @@
 import type { Editor } from "@tiptap/core";
 
-import type { icons } from "lucide-react";
 
 export interface Group {
 	name: string;
@@ -13,7 +12,7 @@ export interface Command {
 	label: string;
 	description: string;
 	aliases?: string[];
-	iconName: keyof typeof icons;
+	icon: React.ReactNode;
 	action: (editor: Editor) => void;
 	shouldBeHidden?: (editor: Editor) => boolean;
 }

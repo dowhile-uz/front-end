@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { Divider, List, ListItemButton, ListItemText, ListSubheader } from "@mui/material";
+import { Divider, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material";
 // import { CommandButton } from "./command-button";
 import type { Command, MenuListProps } from "./types";
 
@@ -153,9 +153,9 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 										selectedCommandIndex === commandIndex
 									}
 								>
-									{/* <ListItemIcon> */}
-									{/* 	<InboxIcon /> */}
-									{/* </ListItemIcon> */}
+									<ListItemIcon sx={{ mr: 1 }}>
+										{command.icon}
+									</ListItemIcon>
 									<ListItemText primary={command.label} />
 								</ListItemButton>
 							))}

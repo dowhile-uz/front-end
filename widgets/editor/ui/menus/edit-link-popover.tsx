@@ -1,6 +1,7 @@
-import * as Popover from "@radix-ui/react-popover";
-import { Icon } from "../extra/icon";
-import { Toolbar } from "../extra/toolbar";
+import { LinkOutlined } from "@mui-symbols-material/w400";
+import { Popover as MuiPopover } from "@mui/material";
+import { Popover } from "@shared/popover";
+import { ToolbarButton } from "@shared/toolbar-button";
 import { LinkEditorPanel } from "../panels/link-editor-panel";
 
 export type EditLinkPopoverProps = {
@@ -8,16 +9,35 @@ export type EditLinkPopoverProps = {
 };
 
 export const EditLinkPopover = ({ onSetLink }: EditLinkPopoverProps) => {
-	return (
-		<Popover.Root>
-			<Popover.Trigger asChild>
-				<Toolbar.Button tooltip="Set Link">
-					<Icon name="Link" />
-				</Toolbar.Button>
-			</Popover.Trigger>
-			<Popover.Content>
-				<LinkEditorPanel onSetLink={onSetLink} />
-			</Popover.Content>
-		</Popover.Root>
-	);
+	return <Popover
+		trigger={
+			({ open, handleClick }) =>
+				<ToolbarButton
+					aria-haspopup="true"
+					aria-expanded={open ? 'true' : undefined}
+					onClick={handleClick}
+				// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
+				>
+					<LinkOutlined />
+				</ToolbarButton>
+		}
+		popover={
+			({ anchorEl, open, handleClose }) =>
+				<MuiPopover
+					anchorEl={anchorEl}
+					open={open}
+					onClose={handleClose}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'left',
+					}}
+					sx={{
+						zIndex: 10000,
+					}}
+
+				>
+					<LinkEditorPanel onSetLink={onSetLink} />
+				</MuiPopover>
+		}
+	/>
 };

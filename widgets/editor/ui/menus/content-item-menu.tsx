@@ -3,7 +3,10 @@ import type { Editor } from "@tiptap/react";
 import { Icon } from "../extra/icon";
 import { Toolbar } from "../extra/toolbar";
 
-import * as Popover from "@radix-ui/react-popover";
+import { AddOutlined, ContentCopyOutlined, ContentPasteOutlined, DeleteOutlined, DragIndicatorOutlined, FormatClearOutlined } from "@mui-symbols-material/w400";
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, Paper } from "@mui/material";
+import { Popover } from "@shared/popover";
+import { ToolbarButton } from "@shared/toolbar-button";
 import { useEffect, useState } from "react";
 import useContentItemActions from "../../hooks/use-content-item-actions";
 import { useData } from "../../hooks/use-data";
@@ -41,50 +44,65 @@ export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
 	//   }}
 	// >
 	return (
-		<div className="flex items-center gap-0.5">
-			<Toolbar.Button onClick={actions.handleAdd}>
-				<Icon name="Plus" />
-			</Toolbar.Button>
-			<Popover.Root open={menuOpen} onOpenChange={setMenuOpen}>
-				<Popover.Trigger asChild>
-					<Toolbar.Button>
-						<Icon name="GripVertical" />
-					</Toolbar.Button>
-				</Popover.Trigger>
-				<Popover.Content side="bottom" align="start" sideOffset={8}>
-					<Surface className="p-2 flex flex-col min-w-[16rem]">
-						<Popover.Close>
-							<DropdownButton onClick={actions.resetTextFormatting}>
-								<Icon name="RemoveFormatting" />
+		<Paper>
+			<ToolbarButton onClick={actions.handleAdd}>
+				<AddOutlined />
+			</ToolbarButton>
+			<Popover
+				trigger={
+					({ handleClick }) => <ToolbarButton onClick={(e) => {
+						handleClick(e)
+						setMenuOpen(true)
+					}}>
+						<DragIndicatorOutlined />
+					</ToolbarButton>
+				}
+				popover={
+					({ anchorEl, open, handleClose }) => <Menu
+						anchorEl={anchorEl}
+						open={open}
+						onClose={() => {
+							handleClose(null)
+							setMenuOpen(false)
+						}}
+					>
+						<MenuItem onClick={actions.resetTextFormatting}>
+							<ListItemIcon>
+								<FormatClearOutlined />
+							</ListItemIcon>
+							<ListItemText>
 								Clear formatting
-							</DropdownButton>
-						</Popover.Close>
-						<Popover.Close>
-							<DropdownButton onClick={actions.copyNodeToClipboard}>
-								<Icon name="Clipboard" />
+							</ListItemText>
+						</MenuItem>
+						<MenuItem onClick={actions.copyNodeToClipboard}>
+							<ListItemIcon>
+								<ContentPasteOutlined />
+							</ListItemIcon>
+							<ListItemText>
 								Copy to clipboard
-							</DropdownButton>
-						</Popover.Close>
-						<Popover.Close>
-							<DropdownButton onClick={actions.duplicateNode}>
-								<Icon name="Copy" />
+							</ListItemText>
+						</MenuItem>
+						<MenuItem onClick={actions.duplicateNode}>
+							<ListItemIcon>
+								<ContentCopyOutlined />
+							</ListItemIcon>
+							<ListItemText>
 								Duplicate
-							</DropdownButton>
-						</Popover.Close>
-						<Toolbar.Divider horizontal />
-						<Popover.Close>
-							<DropdownButton
-								onClick={actions.deleteNode}
-								className="text-red-500 bg-red-500 dark:text-red-500 hover:bg-red-500 dark:hover:text-red-500 dark:hover:bg-red-500 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-20"
-							>
-								<Icon name="Trash2" />
+							</ListItemText>
+						</MenuItem>
+						<Divider />
+						<MenuItem onClick={actions.deleteNode}>
+							<ListItemIcon>
+								<DeleteOutlined />
+							</ListItemIcon>
+							<ListItemText>
 								Delete
-							</DropdownButton>
-						</Popover.Close>
-					</Surface>
-				</Popover.Content>
-			</Popover.Root>
-		</div>
+							</ListItemText>
+						</MenuItem>
+					</Menu>
+				}
+			/>
+		</Paper>
 		// </DragHandle >
 	);
 };

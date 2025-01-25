@@ -1,8 +1,8 @@
+import { UndoOutlined } from "@mui-symbols-material/w400";
+import { Box, Card, IconButton, Paper, TextField, Tooltip } from "@mui/material";
 import { useCallback, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { themeColors } from "../../utils/constants";
-import { Icon } from "../extra/icon";
-import { Toolbar } from "../extra/toolbar";
 import { ColorButton } from "./color-button";
 
 export type ColorPickerProps = {
@@ -38,21 +38,20 @@ export const ColorPicker = ({ color, onChange, onClear }: ColorPickerProps) => {
 	}, [colorInputValue, onChange]);
 
 	return (
-		<div className="flex flex-col gap-2">
+		<Paper variant="outlined" sx={{ padding: 2 }}>
 			<HexColorPicker
-				className="w-full"
+				style={{ width: "100%" }}
 				color={color || ""}
 				onChange={onChange}
 			/>
-			<input
-				type="text"
-				className="w-full p-2 text-black bg-white border rounded dark:bg-black dark:text-white border-neutral-200 dark:border-neutral-800 focus:outline-1 focus:ring-0 focus:outline-neutral-300 dark:focus:outline-neutral-700"
+			<TextField
+				sx={{ my: 2, width: "100%" }}
 				placeholder="#000000"
 				value={colorInputValue}
 				onChange={handleColorUpdate}
 				onBlur={handleColorChange}
 			/>
-			<div className="flex flex-wrap items-center gap-1 max-w-[15rem]">
+			<Box sx={{ display: "flex", gap: 1 }}>
 				{themeColors.map((currentColor) => (
 					<ColorButton
 						active={currentColor === color}
@@ -61,10 +60,12 @@ export const ColorPicker = ({ color, onChange, onClear }: ColorPickerProps) => {
 						onColorChange={onChange}
 					/>
 				))}
-				<Toolbar.Button tooltip="Reset color to default" onClick={onClear}>
-					<Icon name="Undo" />
-				</Toolbar.Button>
-			</div>
-		</div>
+				<Tooltip title="Reset color to default">
+					<IconButton onClick={onClear} size="small">
+						<UndoOutlined />
+					</IconButton>
+				</Tooltip>
+			</Box>
+		</Paper>
 	);
 };
