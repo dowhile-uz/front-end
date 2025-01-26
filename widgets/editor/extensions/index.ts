@@ -25,7 +25,7 @@ export { TaskList } from "@tiptap/extension-task-list";
 // export { Details } from '@tiptap-pro/extension-details'
 // export { DetailsContent } from '@tiptap-pro/extension-details-content'
 // export { DetailsSummary } from '@tiptap-pro/extension-details-summary'
-// export { UniqueID } from '@tiptap-pro/extension-unique-id'
+export { UniqueID } from "../extensions/unique-id";
 
 export { Selection } from "./selection";
 // export { Ai } from './Ai'

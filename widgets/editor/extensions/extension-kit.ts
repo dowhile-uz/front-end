@@ -45,13 +45,13 @@ import {
 	TrailingNode,
 	Typography,
 	Underline,
+	UniqueID,
 	emojiSuggestion,
-	// UniqueID,
 } from ".";
 
+import { isChangeOrigin } from "@tiptap/extension-collaboration";
 import { ImageUpload } from "./image-upload";
 import { TableOfContentsNode } from "./table-of-contents-node";
-// import { isChangeOrigin } from '@tiptap/extension-collaboration'
 
 interface ExtensionKitProps {
 	provider?: HocuspocusProvider | null;
@@ -70,10 +70,10 @@ export const ExtensionKit = ({ provider }: ExtensionKitProps) => [
 		levels: [1, 2, 3, 4, 5, 6],
 	}),
 	HorizontalRule,
-	// UniqueID.configure({
-	//   types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
-	//   filterTransaction: transaction => !isChangeOrigin(transaction),
-	// }),
+	UniqueID.configure({
+		types: ["paragraph", "heading", "blockquote", "codeBlock", "table"],
+		filterTransaction: (transaction) => !isChangeOrigin(transaction),
+	}),
 	StarterKit.configure({
 		document: false,
 		dropcursor: false,

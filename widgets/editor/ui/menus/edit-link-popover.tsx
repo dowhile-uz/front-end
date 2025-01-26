@@ -9,35 +9,34 @@ export type EditLinkPopoverProps = {
 };
 
 export const EditLinkPopover = ({ onSetLink }: EditLinkPopoverProps) => {
-	return <Popover
-		trigger={
-			({ open, handleClick }) =>
+	return (
+		<Popover
+			trigger={({ open, handleClick }) => (
 				<ToolbarButton
 					aria-haspopup="true"
-					aria-expanded={open ? 'true' : undefined}
+					aria-expanded={open ? "true" : undefined}
 					onClick={handleClick}
-				// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
+					// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
 				>
 					<LinkOutlined />
 				</ToolbarButton>
-		}
-		popover={
-			({ anchorEl, open, handleClose }) =>
+			)}
+			popover={({ anchorEl, open, handleClose }) => (
 				<MuiPopover
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}
 					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'left',
+						vertical: "bottom",
+						horizontal: "left",
 					}}
 					sx={{
 						zIndex: 10000,
 					}}
-
 				>
 					<LinkEditorPanel onSetLink={onSetLink} />
 				</MuiPopover>
-		}
-	/>
+			)}
+		/>
+	);
 };

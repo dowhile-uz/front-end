@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { Divider, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material";
+import {
+	Divider,
+	List,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	ListSubheader,
+} from "@mui/material";
 // import { CommandButton } from "./command-button";
 import type { Command, MenuListProps } from "./types";
 
@@ -120,13 +127,13 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 	return (
 		<List
 			sx={{
-				width: '100%',
+				width: "100%",
 				maxWidth: 360,
-				bgcolor: 'background.paper',
-				position: 'relative',
-				overflow: 'auto',
+				bgcolor: "background.paper",
+				position: "relative",
+				overflow: "auto",
 				maxHeight: 300,
-				'& ul': { padding: 0 },
+				"& ul": { padding: 0 },
 			}}
 			subheader={<li />}
 		>
@@ -135,9 +142,7 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 					{groupIndex != 0 && <Divider key={`${group.title}-divider`} />}
 					<li area-label={group.title} key={`${group.title}-wrapper`}>
 						<ul>
-							<ListSubheader>
-								{group.title}
-							</ListSubheader>
+							<ListSubheader>{group.title}</ListSubheader>
 							{group.commands.map((command: Command, commandIndex: number) => (
 								<ListItemButton
 									key={`${command.label}`}
@@ -153,9 +158,7 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 										selectedCommandIndex === commandIndex
 									}
 								>
-									<ListItemIcon sx={{ mr: 1 }}>
-										{command.icon}
-									</ListItemIcon>
+									<ListItemIcon sx={{ mr: 1 }}>{command.icon}</ListItemIcon>
 									<ListItemText primary={command.label} />
 								</ListItemButton>
 							))}

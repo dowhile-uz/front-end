@@ -1,0 +1,79 @@
+.ProseMirror {
+  ol {
+    // @apply list-decimal;
+    list-style-type: decimal;
+  }
+
+  ul {
+    // @apply list-disc;
+    list-style-type: disc;
+  }
+
+  ul,
+  ol {
+    // @apply py-0 px-8 my-6 first:mt-0 last:mb-0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    ul,
+    ol,
+    li {
+      // @apply my-1;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      // @apply mt-0 mb-1;
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  & > ul,
+  & > ol {
+    // @apply my-8 first:mt-0 last:mb-0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  ul[data-type='taskList'] {
+    // @apply list-none p-0;
+    padding: 0;
+    list-style-type: none;
+
+    p {
+      // @apply m-0;
+      margin: 0;
+    }
+
+    li {
+      // @apply flex;
+      display: flex;
+
+      > label {
+        // @apply grow-0 shrink-0 flex-auto mt-1 mr-2 select-none;
+        margin-top: 0.25rem;
+        margin-right: 0.5rem;
+        flex: 1 1 auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        user-select: none;
+      }
+
+      > div {
+        // @apply flex-auto;
+        flex: 1 1 auto;
+      }
+
+      &[data-checked='true'] {
+        // @apply line-through;
+        text-decoration: line-through;
+      }
+    }
+  }
+}

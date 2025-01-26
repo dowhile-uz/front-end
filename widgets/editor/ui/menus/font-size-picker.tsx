@@ -26,36 +26,40 @@ export const FontSizePicker = ({ onChange, value }: FontSizePickerProps) => {
 
 	return (
 		<Popover
-			trigger={({ open, handleClick }) => <Button
-				aria-haspopup="true"
-				aria-expanded={open ? 'true' : undefined}
-				onClick={handleClick}
-			// active={!!currentValue?.value}
-			>
-				{currentSizeLabel}
-			</Button>}
-			popover={({ anchorEl, open, handleClose }) => <Menu
-				anchorEl={anchorEl}
-				open={open}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'left',
-				}}
-				sx={{ zIndex: 10000 }}
-			>
-				{FONT_SIZES.map((size) => (
-					<MenuItem
-						key={size.value}
-						onClick={selectSize(size.value)}
-						selected={value == size.value}
-					>
-						<ListItemText>
-							<span style={{ fontSize: size.value }}>{size.label}</span>
-						</ListItemText>
-					</MenuItem>
-				))}
-			</Menu>}
+			trigger={({ open, handleClick }) => (
+				<Button
+					aria-haspopup="true"
+					aria-expanded={open ? "true" : undefined}
+					onClick={handleClick}
+					// active={!!currentValue?.value}
+				>
+					{currentSizeLabel}
+				</Button>
+			)}
+			popover={({ anchorEl, open, handleClose }) => (
+				<Menu
+					anchorEl={anchorEl}
+					open={open}
+					onClose={handleClose}
+					anchorOrigin={{
+						vertical: "bottom",
+						horizontal: "left",
+					}}
+					sx={{ zIndex: 10000 }}
+				>
+					{FONT_SIZES.map((size) => (
+						<MenuItem
+							key={size.value}
+							onClick={selectSize(size.value)}
+							selected={value == size.value}
+						>
+							<ListItemText>
+								<span style={{ fontSize: size.value }}>{size.label}</span>
+							</ListItemText>
+						</MenuItem>
+					))}
+				</Menu>
+			)}
 		/>
-	)
+	);
 };

@@ -42,28 +42,29 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
 		[options],
 	);
 
-	return <Popover
-		trigger={
-			({ open, handleClick }) =>
+	return (
+		<Popover
+			trigger={({ open, handleClick }) => (
 				<ToolbarButton
 					aria-haspopup="true"
-					aria-expanded={open ? 'true' : undefined}
+					aria-expanded={open ? "true" : undefined}
 					onClick={handleClick}
-				// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
+					// active={activeItem?.id !== "paragraph" && !!activeItem?.type}
 				>
-					{(activeItem?.type === "option" && activeItem.icon) || <FormatParagraphOutlined />}
+					{(activeItem?.type === "option" && activeItem.icon) || (
+						<FormatParagraphOutlined />
+					)}
 					{/* <Icon name="ChevronDown" className="w-2 h-2" /> */}
 				</ToolbarButton>
-		}
-		popover={
-			({ anchorEl, open, handleClose }) =>
+			)}
+			popover={({ anchorEl, open, handleClose }) => (
 				<Menu
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}
 					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'left',
+						vertical: "bottom",
+						horizontal: "left",
 					}}
 					sx={{ zIndex: 10000 }}
 				>
@@ -73,35 +74,27 @@ export const ContentTypePicker = ({ options }: ContentTypePickerProps) => {
 								<MenuItem
 									key={option.id}
 									onClick={(e) => {
-										option.onClick()
-										handleClose(e)
+										option.onClick();
+										handleClose(e);
 									}}
 									selected={option.isActive()}
 								>
-									<ListItemIcon>
-										{option.icon}
-									</ListItemIcon>
+									<ListItemIcon>{option.icon}</ListItemIcon>
 
-									<ListItemText>
-										{option.label}
-									</ListItemText>
+									<ListItemText>{option.label}</ListItemText>
 								</MenuItem>
 							);
 						}
 						if (isCategory(option)) {
 							return (
-								<MenuItem
-									key={option.id}
-									disabled={true}
-								>
-									<ListItemText>
-										{option.label}
-									</ListItemText>
+								<MenuItem key={option.id} disabled={true}>
+									<ListItemText>{option.label}</ListItemText>
 								</MenuItem>
 							);
 						}
 					})}
 				</Menu>
-		}
-	/>
+			)}
+		/>
+	);
 };

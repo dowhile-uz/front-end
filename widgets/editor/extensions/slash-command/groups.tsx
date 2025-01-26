@@ -1,4 +1,18 @@
-import { CodeBlocksOutlined, FormatH1Outlined, FormatH2Outlined, FormatH3Outlined, FormatListBulletedAddOutlined, FormatListBulletedOutlined, FormatListNumberedOutlined, FormatQuoteOutlined, ImageOutlined, RemoveOutlined, TableOutlined, TocOutlined, ViewColumn2Outlined } from "@mui-symbols-material/w400";
+import {
+	CodeBlocksOutlined,
+	FormatH1Outlined,
+	FormatH2Outlined,
+	FormatH3Outlined,
+	FormatListBulletedAddOutlined,
+	FormatListBulletedOutlined,
+	FormatListNumberedOutlined,
+	FormatQuoteOutlined,
+	ImageOutlined,
+	RemoveOutlined,
+	TableOutlined,
+	TocOutlined,
+	ViewColumn2Outlined,
+} from "@mui-symbols-material/w400";
 import type { Group } from "./types";
 
 export const GROUPS: Group[] = [

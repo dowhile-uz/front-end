@@ -1,0 +1,143 @@
+.ProseMirror {
+  p {
+    // @apply leading-relaxed my-3 first:mt-0 last:mb-0;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.625;
+  }
+
+  & > p {
+    // @apply my-6 first:mt-0 last:mb-0;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    // @apply text-3xl;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  h2 {
+    // @apply text-2xl;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  h3 {
+    // @apply text-xl;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  h4 {
+    // @apply text-lg;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  h5 {
+    // @apply text-base;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  h6 {
+    // @apply text-sm;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // @apply font-bold first:mt-0 last:mb-0;
+    font-weight: 700;
+  }
+
+  h1,
+  h2,
+  h3 {
+    // @apply mt-12;
+    margin-top: 3rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    // @apply mt-8;
+    margin-top: 2rem;
+  }
+
+  a.link {
+    // @apply text-blue-500 font-extrabold dark:text-blue-400;
+    font-weight: 800;
+    color: #3B82F6;
+  }
+
+  mark {
+    // @apply bg-red-500 rounded-sm decoration-clone text-inherit py-1 px-0 dark:bg-red-400;
+    box-decoration-break: clone;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 0.125rem;
+    background-color: #EF4444;
+  }
+
+  & img {
+    // @apply h-auto w-full max-w-full;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  [data-type='horizontalRule'] {
+    // @apply my-8 py-4 transition-all duration-100 ease-in-out cursor-pointer;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    transition-duration: 100ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+
+    // &.ProseMirror-selectednode {
+    //   // @apply bg-black/5 dark:bg-white/10;
+
+    //   hr {
+    //     // @apply border-t-black/30 dark:border-t-white/30;
+    //   }
+    // }
+
+    // &:hover:not(&.ProseMirror-selectednode) {
+    //   @apply bg-black/5;
+    //   @apply dark:bg-white/10;
+    // }
+
+    hr {
+      // @apply border-0 border-t border-black/20 bg-black/80;
+      border-width: 0;
+      border-top-width: 1px;
+      // @apply dark:border-white/20 dark:bg-white/80;
+    }
+  }
+
+  [data-type='emoji'] {
+    display: inline-block;
+
+    img {
+      width: 1em;
+      height: 1em;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}

@@ -16,13 +16,15 @@ export const ColorButton = React.memo(
 		}, [onColorChange, color]);
 
 		return (
-			<IconButton
-				size="small"
-				onClick={handleClick}
-				sx={{ p: 1 }}
-			>
+			<IconButton size="small" onClick={handleClick} sx={{ p: 1 }}>
 				<Box
-					sx={{ backgroundColor: color, color: color, height: "100%", width: "100%", borderRadius: 1 }}
+					sx={{
+						backgroundColor: color,
+						color: color,
+						height: "100%",
+						width: "100%",
+						borderRadius: 1,
+					}}
 				/>
 			</IconButton>
 		);

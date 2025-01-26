@@ -20,9 +20,6 @@
 			"include": ["./widgets/editor/**"],
 			"linter": {
 				"enabled": false
-			},
-			"formatter": {
-				"enabled": false
 			}
 		}
 	]

@@ -49,58 +49,49 @@ export const FontFamilyPicker = ({
 		[onChange],
 	);
 
-	return <Popover
-		trigger={
-			({ open, handleClick }) =>
+	return (
+		<Popover
+			trigger={({ open, handleClick }) => (
 				<Button
 					aria-haspopup="true"
-					aria-expanded={open ? 'true' : undefined}
+					aria-expanded={open ? "true" : undefined}
 					onClick={handleClick}
-				// active={!!currentValue?.value}
+					// active={!!currentValue?.value}
 				>
 					{currentFontLabel}
 				</Button>
-		}
-		popover={
-			({ anchorEl, open, handleClose }) =>
+			)}
+			popover={({ anchorEl, open, handleClose }) => (
 				<Menu
 					anchorEl={anchorEl}
 					open={open}
 					onClose={handleClose}
 					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'left',
+						vertical: "bottom",
+						horizontal: "left",
 					}}
 					sx={{ zIndex: 10000 }}
 				>
 					{FONT_FAMILY_GROUPS.map((group) => (
 						<>
-							<MenuItem
-								disabled={true}
-								key={`group-${group.label}`}
-							>
-								<ListItemText>
-									{group.label}
-								</ListItemText>
+							<MenuItem disabled={true} key={`group-${group.label}`}>
+								<ListItemText>{group.label}</ListItemText>
 							</MenuItem>
-							{
-								group.options.map((font) => (
-									<MenuItem
-										key={`option-${font.value}`}
-										onClick={
-											selectFont(font.value)
-										}
-										selected={value == font.value}
-									>
-										<ListItemText>
-											<span style={{ fontFamily: font.value }}>{font.label}</span>
-										</ListItemText>
-									</MenuItem>
-								))
-							}
+							{group.options.map((font) => (
+								<MenuItem
+									key={`option-${font.value}`}
+									onClick={selectFont(font.value)}
+									selected={value == font.value}
+								>
+									<ListItemText>
+										<span style={{ fontFamily: font.value }}>{font.label}</span>
+									</ListItemText>
+								</MenuItem>
+							))}
 						</>
 					))}
 				</Menu>
-		}
-	/>
+			)}
+		/>
+	);
 };

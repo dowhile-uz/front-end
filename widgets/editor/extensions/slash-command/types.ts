@@ -1,6 +1,5 @@
 import type { Editor } from "@tiptap/core";
 
-
 export interface Group {
 	name: string;
 	title: string;

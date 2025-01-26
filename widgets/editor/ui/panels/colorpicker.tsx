@@ -1,5 +1,12 @@
 import { UndoOutlined } from "@mui-symbols-material/w400";
-import { Box, Card, IconButton, Paper, TextField, Tooltip } from "@mui/material";
+import {
+	Box,
+	Card,
+	IconButton,
+	Paper,
+	TextField,
+	Tooltip,
+} from "@mui/material";
 import { useCallback, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { themeColors } from "../../utils/constants";

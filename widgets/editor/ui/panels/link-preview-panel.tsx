@@ -18,10 +18,10 @@ export const LinkPreviewPanel = ({
 		<Paper
 			variant="outlined"
 			sx={{
-				display: 'flex',
-				alignItems: 'center',
-				bgcolor: 'background.paper',
-				color: 'text.secondary',
+				display: "flex",
+				alignItems: "center",
+				bgcolor: "background.paper",
+				color: "text.secondary",
 				gap: 1,
 				paddingTop: 1,
 				paddingBottom: 1,
@@ -30,12 +30,9 @@ export const LinkPreviewPanel = ({
 				[`& .${dividerClasses.root}`]: {
 					mx: 0.5,
 				},
-			}}>
-			<Link
-				href={sanitizedLink}
-				target="_blank"
-				rel="noopener noreferrer"
-			>
+			}}
+		>
+			<Link href={sanitizedLink} target="_blank" rel="noopener noreferrer">
 				{url}
 			</Link>
 			<Divider orientation="vertical" flexItem />

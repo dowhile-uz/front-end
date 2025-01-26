@@ -1,4 +1,12 @@
-import { FormatH1Outlined, FormatH2Outlined, FormatH3Outlined, FormatListBulletedAddOutlined, FormatListBulletedOutlined, FormatListNumberedOutlined, FormatParagraphOutlined } from "@mui-symbols-material/w400"
+import {
+	FormatH1Outlined,
+	FormatH2Outlined,
+	FormatH3Outlined,
+	FormatListBulletedAddOutlined,
+	FormatListBulletedOutlined,
+	FormatListNumberedOutlined,
+	FormatParagraphOutlined,
+} from "@mui-symbols-material/w400";
 import { type Editor, useEditorState } from "@tiptap/react";
 import type { ContentPickerOptions } from "../ui/menus/content-type-picker";
 

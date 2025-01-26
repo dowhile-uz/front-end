@@ -18,12 +18,12 @@ export const Heading = TiptapHeading.extend({
 	},
 	addNodeView() {
 		return ReactNodeViewRenderer((props) => {
-			return <Typography
-				variant={`h${props.node.attrs.level}` as "h1"}
-			>
-				<NodeViewContent />
-			</Typography>
-		})
+			return (
+				<Typography variant={`h${props.node.attrs.level}` as "h1"}>
+					<NodeViewContent />
+				</Typography>
+			);
+		});
 	},
 });
 
