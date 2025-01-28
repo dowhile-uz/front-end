@@ -2,7 +2,11 @@ import { Typography } from "@mui/material";
 import { mergeAttributes } from "@tiptap/core";
 import TiptapHeading from "@tiptap/extension-heading";
 import type { Level } from "@tiptap/extension-heading";
-import { NodeViewContent, ReactNodeViewRenderer } from "@tiptap/react";
+import {
+	NodeViewContent,
+	NodeViewWrapper,
+	ReactNodeViewRenderer,
+} from "@tiptap/react";
 
 export const Heading = TiptapHeading.extend({
 	renderHTML({ node, HTMLAttributes }) {
@@ -19,9 +23,11 @@ export const Heading = TiptapHeading.extend({
 	addNodeView() {
 		return ReactNodeViewRenderer((props) => {
 			return (
-				<Typography variant={`h${props.node.attrs.level}` as "h1"}>
-					<NodeViewContent />
-				</Typography>
+				<NodeViewWrapper>
+					<Typography variant={`h${props.node.attrs.level}` as "h1"}>
+						<NodeViewContent />
+					</Typography>
+				</NodeViewWrapper>
 			);
 		});
 	},

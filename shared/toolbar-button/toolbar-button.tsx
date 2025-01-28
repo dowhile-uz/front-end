@@ -17,7 +17,7 @@ export type ToolbarButtonProps = ButtonProps & {
 export const ToolbarButton = React.forwardRef<
 	HTMLButtonElement,
 	ToolbarButtonProps
->(({ children, tooltip, tooltipShortcut, ...props }, ref) => {
+>(({ children, tooltip, tooltipShortcut, active, ...props }, ref) => {
 	const button = (
 		<IconButton ref={ref} sx={{ border: "none" }} {...props}>
 			{children}
@@ -32,10 +32,10 @@ export const ToolbarButton = React.forwardRef<
 
 	if (Array.isArray(tooltipShortcut) && tooltipShortcut.length) {
 		shortcut = tooltipShortcut.map((title, index) => (
-			<>
+			<React.Fragment key={index}>
 				{index === 0 ? "\u00A0" : "\u00A0+\u00A0"}
-				<Chip key={`${index}-${title}`} size="small" label={title} />
-			</>
+				<Chip size="small" label={title} />
+			</React.Fragment>
 		));
 	}
 

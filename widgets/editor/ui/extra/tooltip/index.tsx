@@ -36,6 +36,7 @@ export const Tooltip = ({
 	shortcut,
 	tippyOptions = {},
 }: TooltipProps): JSX.Element => {
+	return <React.Fragment />;
 	const renderTooltip = useCallback(
 		(attrs: TippyProps) => (
 			<span

@@ -19,7 +19,7 @@ import {
 import { Popover } from "@shared/popover";
 import { ToolbarButton } from "@shared/toolbar-button";
 import { PluginKey } from "@tiptap/pm/state";
-import { useEffect, useState } from "react";
+import React from "react";
 import { DragHandleComponent } from "../../extensions/drag-handle";
 import useContentItemActions from "../../hooks/use-content-item-actions";
 import { useData } from "../../hooks/use-data";
@@ -31,7 +31,7 @@ export type ContentItemMenuProps = {
 const pluginKey = new PluginKey("ContentItemMenu");
 
 export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
-	const [menuOpen, setMenuOpen] = useState(false);
+	const [menuOpen, setMenuOpen] = React.useState(false);
 	const data = useData();
 	const actions = useContentItemActions(
 		editor,
@@ -39,7 +39,7 @@ export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
 		data.currentNodePos,
 	);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (menuOpen) {
 			editor.commands.setMeta("lockDragHandle", true);
 		} else {
@@ -57,13 +57,17 @@ export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
 				zIndex: 99,
 			}}
 		>
-			<Paper>
-				<ToolbarButton onClick={actions.handleAdd}>
+			<Paper
+				variant="outlined"
+				sx={{ display: "flex", transform: "translateY(-5px)" }}
+			>
+				<ToolbarButton size="small" onClick={actions.handleAdd}>
 					<AddOutlined />
 				</ToolbarButton>
 				<Popover
 					trigger={({ handleClick }) => (
 						<ToolbarButton
+							size="small"
 							onClick={(e) => {
 								handleClick(e);
 								setMenuOpen(true);
@@ -81,26 +85,46 @@ export const ContentItemMenu = ({ editor }: ContentItemMenuProps) => {
 								setMenuOpen(false);
 							}}
 						>
-							<MenuItem onClick={actions.resetTextFormatting}>
+							<MenuItem
+								onClick={() => {
+									actions.resetTextFormatting();
+									handleClose(null);
+								}}
+							>
 								<ListItemIcon>
 									<FormatClearOutlined />
 								</ListItemIcon>
 								<ListItemText>Clear formatting</ListItemText>
 							</MenuItem>
-							<MenuItem onClick={actions.copyNodeToClipboard}>
+							<MenuItem
+								onClick={() => {
+									actions.copyNodeToClipboard();
+									handleClose(null);
+								}}
+							>
 								<ListItemIcon>
 									<ContentPasteOutlined />
 								</ListItemIcon>
 								<ListItemText>Copy to clipboard</ListItemText>
 							</MenuItem>
-							<MenuItem onClick={actions.duplicateNode}>
+							<MenuItem
+								onClick={() => {
+									actions.duplicateNode();
+									handleClose(null);
+								}}
+							>
 								<ListItemIcon>
 									<ContentCopyOutlined />
 								</ListItemIcon>
 								<ListItemText>Duplicate</ListItemText>
 							</MenuItem>
 							<Divider />
-							<MenuItem onClick={actions.deleteNode}>
+							<MenuItem
+								onClick={() => {
+									actions.deleteNode();
+									handleClose(null);
+								}}
+							>
 								<ListItemIcon>
 									<DeleteOutlined />
 								</ListItemIcon>

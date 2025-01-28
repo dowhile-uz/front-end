@@ -29,8 +29,6 @@ export const DragHandleComponent: React.FC<{
 	);
 	const plugin = React.useRef<ReturnType<typeof DragHandlePlugin> | null>(null);
 
-	console.log("render", plugin.current);
-
 	React.useEffect(() => {
 		if (!domElement || editor.isDestroyed) {
 			return () => {

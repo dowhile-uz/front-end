@@ -73,8 +73,8 @@ export const FontFamilyPicker = ({
 					sx={{ zIndex: 10000 }}
 				>
 					{FONT_FAMILY_GROUPS.map((group) => (
-						<>
-							<MenuItem disabled={true} key={`group-${group.label}`}>
+						<React.Fragment key={`group-${group.label}`}>
+							<MenuItem disabled={true}>
 								<ListItemText>{group.label}</ListItemText>
 							</MenuItem>
 							{group.options.map((font) => (
@@ -88,7 +88,7 @@ export const FontFamilyPicker = ({
 									</ListItemText>
 								</MenuItem>
 							))}
-						</>
+						</React.Fragment>
 					))}
 				</Menu>
 			)}

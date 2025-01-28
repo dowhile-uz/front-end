@@ -1,30 +1,52 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 
 import {
 	Divider,
-	List,
-	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	ListSubheader,
+	MenuItem,
+	MenuList as MuiMenuList,
+	Paper,
 } from "@mui/material";
-// import { CommandButton } from "./command-button";
 import type { Command, MenuListProps } from "./types";
 
-export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
-	const scrollContainer = useRef<HTMLDivElement>(null);
-	const activeItem = useRef<HTMLButtonElement>(null);
-	const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
-	const [selectedCommandIndex, setSelectedCommandIndex] = useState(0);
+export const MenuList: React.FC<MenuListProps> = (props) => {
+	const listRef = React.useRef<HTMLUListElement | null>(null);
 
-	// Anytime the groups change, i.e. the user types to narrow it down, we want to
-	// reset the current selection to the first menu item
-	useEffect(() => {
-		setSelectedGroupIndex(0);
-		setSelectedCommandIndex(0);
-	}, [props.items]);
+	React.useEffect(() => {
+		let currentIndex = -1;
 
-	const selectItem = useCallback(
+		const handler = (event: KeyboardEvent) => {
+			if (!listRef.current) return;
+
+			const children = listRef.current.querySelectorAll(
+				".slash-command-menu-list-command",
+			) as NodeListOf<HTMLLIElement>;
+
+			if (event.key == "ArrowDown") {
+				if (currentIndex + 1 == children.length) {
+					currentIndex = 0;
+				} else {
+					currentIndex++;
+				}
+			} else if (event.key == "ArrowUp") {
+				if (currentIndex - 1 < 0) {
+					currentIndex = children.length - 1;
+				} else {
+					currentIndex--;
+				}
+			}
+
+			if (!children[currentIndex]) return;
+
+			children[currentIndex].focus();
+		};
+		document.body.addEventListener("keydown", handler);
+
+		return () => document.body.removeEventListener("keydown", handler);
+	}, []);
+
+	const selectItem = React.useCallback(
 		(groupIndex: number, commandIndex: number) => {
 			const command = props.items[groupIndex].commands[commandIndex];
 			props.command(command);
@@ -32,100 +54,12 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 		[props],
 	);
 
-	React.useImperativeHandle(ref, () => ({
-		onKeyDown: ({ event }: { event: React.KeyboardEvent }) => {
-			if (event.key === "ArrowDown") {
-				if (!props.items.length) {
-					return false;
-				}
-
-				const commands = props.items[selectedGroupIndex].commands;
-
-				let newCommandIndex = selectedCommandIndex + 1;
-				let newGroupIndex = selectedGroupIndex;
-
-				if (commands.length - 1 < newCommandIndex) {
-					newCommandIndex = 0;
-					newGroupIndex = selectedGroupIndex + 1;
-				}
-
-				if (props.items.length - 1 < newGroupIndex) {
-					newGroupIndex = 0;
-				}
-
-				setSelectedCommandIndex(newCommandIndex);
-				setSelectedGroupIndex(newGroupIndex);
-
-				return true;
-			}
-
-			if (event.key === "ArrowUp") {
-				if (!props.items.length) {
-					return false;
-				}
-
-				let newCommandIndex = selectedCommandIndex - 1;
-				let newGroupIndex = selectedGroupIndex;
-
-				if (newCommandIndex < 0) {
-					newGroupIndex = selectedGroupIndex - 1;
-					newCommandIndex =
-						props.items[newGroupIndex]?.commands.length - 1 || 0;
-				}
-
-				if (newGroupIndex < 0) {
-					newGroupIndex = props.items.length - 1;
-					newCommandIndex = props.items[newGroupIndex].commands.length - 1;
-				}
-
-				setSelectedCommandIndex(newCommandIndex);
-				setSelectedGroupIndex(newGroupIndex);
-
-				return true;
-			}
-
-			if (event.key === "Enter") {
-				if (
-					!props.items.length ||
-					selectedGroupIndex === -1 ||
-					selectedCommandIndex === -1
-				) {
-					return false;
-				}
-
-				selectItem(selectedGroupIndex, selectedCommandIndex);
-
-				return true;
-			}
-
-			return false;
-		},
-	}));
-
-	useEffect(() => {
-		if (activeItem.current && scrollContainer.current) {
-			const offsetTop = activeItem.current.offsetTop;
-			const offsetHeight = activeItem.current.offsetHeight;
-
-			scrollContainer.current.scrollTop = offsetTop - offsetHeight;
-		}
-	}, [selectedCommandIndex, selectedGroupIndex]);
-
-	const createCommandClickHandler = useCallback(
-		(groupIndex: number, commandIndex: number) => {
-			return () => {
-				selectItem(groupIndex, commandIndex);
-			};
-		},
-		[selectItem],
-	);
-
-	if (!props.items.length) {
+	if (props.items.length == 0) {
 		return null;
 	}
 
 	return (
-		<List
+		<Paper
 			sx={{
 				width: "100%",
 				maxWidth: 360,
@@ -133,42 +67,32 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
 				position: "relative",
 				overflow: "auto",
 				maxHeight: 300,
-				"& ul": { padding: 0 },
 			}}
-			subheader={<li />}
 		>
-			{props.items.map((group, groupIndex: number) => (
-				<>
-					{groupIndex != 0 && <Divider key={`${group.title}-divider`} />}
-					<li area-label={group.title} key={`${group.title}-wrapper`}>
-						<ul>
-							<ListSubheader>{group.title}</ListSubheader>
-							{group.commands.map((command: Command, commandIndex: number) => (
-								<ListItemButton
-									key={`${command.label}`}
-									// ref={
-									// 	selectedGroupIndex === groupIndex &&
-									// 		selectedCommandIndex === commandIndex
-									// 		? activeItem
-									// 		: null
-									// }
-									onClick={createCommandClickHandler(groupIndex, commandIndex)}
-									selected={
-										selectedGroupIndex === groupIndex &&
-										selectedCommandIndex === commandIndex
-									}
-								>
-									<ListItemIcon sx={{ mr: 1 }}>{command.icon}</ListItemIcon>
-									<ListItemText primary={command.label} />
-								</ListItemButton>
-							))}
-						</ul>
-					</li>
-				</>
-			))}
-		</List>
+			<MuiMenuList ref={listRef}>
+				{props.items.map((group, groupIndex: number) => (
+					<React.Fragment key={group.title}>
+						{groupIndex != 0 && <Divider />}
+						<MenuItem disabled>
+							<ListItemText primary={group.title} />
+						</MenuItem>
+
+						{group.commands.map((command: Command, commandIndex: number) => (
+							<MenuItem
+								key={`${group.title}-${command.label}`}
+								className="slash-command-menu-list-command"
+								onClick={() => selectItem(groupIndex, commandIndex)}
+							>
+								<ListItemIcon sx={{ mr: 1 }}>{command.icon}</ListItemIcon>
+								<ListItemText primary={command.label} />
+							</MenuItem>
+						))}
+					</React.Fragment>
+				))}
+			</MuiMenuList>
+		</Paper>
 	);
-});
+};
 
 MenuList.displayName = "MenuList";
 
