@@ -10,6 +10,7 @@
 		"sourceMap": true,
 		"module": "ESNext",
 		"noEmit": true,
+		"noUncheckedIndexedAccess": true,
 		"moduleResolution": "Bundler",
 		"target": "ES2022",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -18,11 +19,8 @@
 		"jsxImportSource": "react",
 		"paths": {
 			"@app/*": ["./app/*"],
-			"@widgets": ["./widgets/*"],
 			"@widgets/*": ["./widgets/*"],
-			"@features": ["./entities/*"],
 			"@features/*": ["./features/*"],
-			"@entities": ["./entities/*"],
 			"@entities/*": ["./entities/*"],
 			"@shared/*": ["./shared/*"]
 		}

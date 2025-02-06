@@ -14,6 +14,7 @@ export default {
 	description: "dowhile.uz - dasturchilar hamjamiyati",
 	lang: "uz",
 	ssr: false,
+	stream: true,
 
 	extends: vikeReact,
 } satisfies Config;

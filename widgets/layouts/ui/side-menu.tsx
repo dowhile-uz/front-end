@@ -1,11 +1,13 @@
+import { useUser } from "@entities/user";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import CardAlert from "./card-alert";
+import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 import MenuContent from "./menu-content";
 import OptionsMenu from "./options-menu";
 import SelectContent from "./select-content";
@@ -24,6 +26,8 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+	const user = useUser();
+
 	return (
 		<Drawer
 			variant="permanent"
@@ -53,7 +57,6 @@ export default function SideMenu() {
 				}}
 			>
 				<MenuContent />
-				<CardAlert />
 			</Box>
 			<Stack
 				direction="row"
@@ -65,24 +68,42 @@ export default function SideMenu() {
 					borderColor: "divider",
 				}}
 			>
-				<Avatar
-					sizes="small"
-					alt="Riley Carter"
-					src="/static/images/avatar/7.jpg"
-					sx={{ width: 36, height: 36 }}
-				/>
-				<Box sx={{ mr: "auto" }}>
-					<Typography
-						variant="body2"
-						sx={{ fontWeight: 500, lineHeight: "16px" }}
+				{!user.isLoading && user.isError && (
+					<Button
+						component="a"
+						href="/api/v1/github-auth/redirect"
+						tabIndex={-1}
+						startIcon={<FaGithub />}
+						sx={{
+							width: "100%",
+						}}
 					>
-						Riley Carter
-					</Typography>
-					<Typography variant="caption" sx={{ color: "text.secondary" }}>
-						riley@email.com
-					</Typography>
-				</Box>
-				<OptionsMenu />
+						GitHub orqali kirish
+					</Button>
+				)}
+
+				{!user.isLoading && user.data && (
+					<>
+						<Avatar
+							sizes="small"
+							alt={user.data.name}
+							src={user.data.avatar_url}
+							sx={{ width: 36, height: 36 }}
+						/>
+						<Box sx={{ mr: "auto" }}>
+							<Typography
+								variant="body2"
+								sx={{ fontWeight: 500, lineHeight: "16px" }}
+							>
+								{user.data.name}
+							</Typography>
+							<Typography variant="caption" sx={{ color: "text.secondary" }}>
+								{user.data.username}
+							</Typography>
+						</Box>
+						<OptionsMenu />
+					</>
+				)}
 			</Stack>
 		</Drawer>
 	);

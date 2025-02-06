@@ -1,13 +1,11 @@
+import { useUser } from "@entities/user";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import CardAlert from "./card-alert";
-import MenuButton from "./menu-button";
 import MenuContent from "./menu-content";
 
 interface SideMenuMobileProps {
@@ -19,6 +17,8 @@ export default function SideMenuMobile({
 	open,
 	toggleDrawer,
 }: SideMenuMobileProps) {
+	const user = useUser();
+
 	return (
 		<Drawer
 			anchor="right"
@@ -38,40 +38,43 @@ export default function SideMenuMobile({
 					height: "100%",
 				}}
 			>
-				<Stack direction="row" sx={{ p: 2, pb: 0, gap: 1 }}>
-					<Stack
-						direction="row"
-						sx={{ gap: 1, alignItems: "center", flexGrow: 1, p: 1 }}
-					>
-						<Avatar
-							sizes="small"
-							alt="Riley Carter"
-							src="/static/images/avatar/7.jpg"
-							sx={{ width: 24, height: 24 }}
-						/>
-						<Typography component="p" variant="h6">
-							Riley Carter
-						</Typography>
-					</Stack>
-					<MenuButton showBadge>
-						<NotificationsRoundedIcon />
-					</MenuButton>
-				</Stack>
-				<Divider />
+				{!user.isLoading && user.data && (
+					<>
+						<Stack direction="row" sx={{ p: 2, pb: 0, gap: 1 }}>
+							<Stack
+								direction="row"
+								sx={{ gap: 1, alignItems: "center", flexGrow: 1, p: 1 }}
+							>
+								<Avatar
+									sizes="small"
+									alt={user.data.name}
+									src={user.data.avatar_url}
+									sx={{ width: 24, height: 24 }}
+								/>
+								<Typography component="p" variant="h6">
+									{user.data.name}
+								</Typography>
+							</Stack>
+						</Stack>
+						<Divider />
+					</>
+				)}
 				<Stack sx={{ flexGrow: 1 }}>
 					<MenuContent />
-					<Divider />
 				</Stack>
-				<CardAlert />
-				<Stack sx={{ p: 2 }}>
-					<Button
-						variant="outlined"
-						fullWidth
-						startIcon={<LogoutRoundedIcon />}
-					>
-						Logout
-					</Button>
-				</Stack>
+				<Divider />
+				{!user.isLoading && user.data && (
+					<Stack sx={{ p: 2 }}>
+						<Button
+							href="/logout"
+							variant="outlined"
+							fullWidth
+							startIcon={<LogoutRoundedIcon />}
+						>
+							Logout
+						</Button>
+					</Stack>
+				)}
 			</Stack>
 		</Drawer>
 	);
