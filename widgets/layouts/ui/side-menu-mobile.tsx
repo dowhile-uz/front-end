@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import MenuContent from "./menu-content";
+import { MenuContent } from "./menu-content";
 
 interface SideMenuMobileProps {
 	open: boolean | undefined;

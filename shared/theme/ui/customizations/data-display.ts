@@ -4,7 +4,7 @@ import { iconButtonClasses } from "@mui/material/IconButton";
 import { svgIconClasses } from "@mui/material/SvgIcon";
 import { typographyClasses } from "@mui/material/Typography";
 import { type Components, type Theme, alpha } from "@mui/material/styles";
-import { gray, green, red } from "../theme-primitives";
+// import { gray, green, red } from "../theme-primitives";
 
 export const dataDisplayCustomizations: Components<Theme> = {
 	MuiList: {
@@ -102,23 +102,23 @@ export const dataDisplayCustomizations: Components<Theme> = {
 							color: "default",
 						},
 						style: {
-							borderColor: gray[200],
-							backgroundColor: gray[100],
-							[`& .${chipClasses.label}`]: {
-								color: gray[500],
-							},
-							[`& .${chipClasses.icon}`]: {
-								color: gray[500],
-							},
+							// borderColor: gray[200],
+							// backgroundColor: gray[100],
+							// [`& .${chipClasses.label}`]: {
+							// 	color: gray[500],
+							// },
+							// [`& .${chipClasses.icon}`]: {
+							// 	color: gray[500],
+							// },
 							...theme.applyStyles("dark", {
-								borderColor: gray[700],
-								backgroundColor: gray[800],
-								[`& .${chipClasses.label}`]: {
-									color: gray[300],
-								},
-								[`& .${chipClasses.icon}`]: {
-									color: gray[300],
-								},
+								// borderColor: gray[700],
+								// backgroundColor: gray[800],
+								// [`& .${chipClasses.label}`]: {
+								// 	color: gray[300],
+								// },
+								// [`& .${chipClasses.icon}`]: {
+								// 	color: gray[300],
+								// },
 							}),
 						},
 					},
@@ -127,23 +127,23 @@ export const dataDisplayCustomizations: Components<Theme> = {
 							color: "success",
 						},
 						style: {
-							borderColor: green[200],
-							backgroundColor: green[50],
-							[`& .${chipClasses.label}`]: {
-								color: green[500],
-							},
-							[`& .${chipClasses.icon}`]: {
-								color: green[500],
-							},
+							// borderColor: green[200],
+							// backgroundColor: green[50],
+							// [`& .${chipClasses.label}`]: {
+							// 	color: green[500],
+							// },
+							// [`& .${chipClasses.icon}`]: {
+							// 	color: green[500],
+							// },
 							...theme.applyStyles("dark", {
-								borderColor: green[800],
-								backgroundColor: green[900],
-								[`& .${chipClasses.label}`]: {
-									color: green[300],
-								},
-								[`& .${chipClasses.icon}`]: {
-									color: green[300],
-								},
+								// borderColor: green[800],
+								// backgroundColor: green[900],
+								// [`& .${chipClasses.label}`]: {
+								// 	color: green[300],
+								// },
+								// [`& .${chipClasses.icon}`]: {
+								// 	color: green[300],
+								// },
 							}),
 						},
 					},
@@ -152,23 +152,23 @@ export const dataDisplayCustomizations: Components<Theme> = {
 							color: "error",
 						},
 						style: {
-							borderColor: red[100],
-							backgroundColor: red[50],
-							[`& .${chipClasses.label}`]: {
-								color: red[500],
-							},
-							[`& .${chipClasses.icon}`]: {
-								color: red[500],
-							},
+							// borderColor: red[100],
+							// backgroundColor: red[50],
+							// [`& .${chipClasses.label}`]: {
+							// 	color: red[500],
+							// },
+							// [`& .${chipClasses.icon}`]: {
+							// 	color: red[500],
+							// },
 							...theme.applyStyles("dark", {
-								borderColor: red[800],
-								backgroundColor: red[900],
-								[`& .${chipClasses.label}`]: {
-									color: red[200],
-								},
-								[`& .${chipClasses.icon}`]: {
-									color: red[300],
-								},
+								// borderColor: red[800],
+								// backgroundColor: red[900],
+								// [`& .${chipClasses.label}`]: {
+								// 	color: red[200],
+								// },
+								// [`& .${chipClasses.icon}`]: {
+								// 	color: red[300],
+								// },
 							}),
 						},
 					},

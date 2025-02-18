@@ -1,6 +1,7 @@
 {
 	"scripts": {
 		"dev": "nodemon --exec npm run server:dev",
+		"vike:dev": "vike dev",
 		"prod": "npm run build && npm run server:prod",
 		"build": "vike build",
 		"server": "dotenv -- node --loader ts-node/esm ./app/server/index.ts",
@@ -71,6 +72,7 @@
 		"lowlight": "^3.3.0",
 		"openapi-fetch": "^0.13.4",
 		"openapi-react-query": "^0.3.0",
+		"palettey": "^1.0.4",
 		"react": "^18.3.1",
 		"react-colorful": "^5.6.1",
 		"react-dom": "^18.3.1",
@@ -110,7 +112,8 @@
 		"ts-node": "^10.9.2",
 		"typescript": "^5.7.3",
 		"vike": "^0.4.214",
-		"vite": "^6.0.7"
+		"vite": "^6.0.7",
+		"vite-plugin-json5": "^1.1.6"
 	},
 	"type": "module",
 	"lint-staged": {

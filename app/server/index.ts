@@ -88,7 +88,7 @@ async function startServer() {
 	);
 
 	app.get(
-		/\/api\/.*/,
+		[/\/api\/.*/, "/openapi.yaml"],
 		proxy(process.env.VITE_BACKEND_URL ?? "http://127.0.0.1:8000", {
 			proxyReqOptDecorator(proxyReqOpts, srcReq) {
 				if (!proxyReqOpts.headers) {
@@ -109,6 +109,10 @@ async function startServer() {
 				return proxyReqOpts;
 			},
 			proxyReqPathResolver(req) {
+				if (req.path === "/openapi.yaml") {
+					return req.path;
+				}
+
 				return req.path.split("/api").slice(1).join("");
 			},
 			userResHeaderDecorator(headers, _, __, ___, proxyRes) {

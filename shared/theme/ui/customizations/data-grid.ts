@@ -9,7 +9,7 @@ import { type Theme, alpha } from "@mui/material/styles";
 import { gridClasses } from "@mui/x-data-grid";
 import type { DataGridProComponents } from "@mui/x-data-grid-pro/themeAugmentation";
 import type { DataGridComponents } from "@mui/x-data-grid/themeAugmentation";
-import { gray } from "../theme-primitives";
+// import { gray } from "../theme-primitives";
 
 export const dataGridCustomizations: DataGridProComponents<Theme> &
 	DataGridComponents<Theme> = {
@@ -87,16 +87,16 @@ export const dataGridCustomizations: DataGridProComponents<Theme> &
 						backgroundColor: alpha(theme.palette.action.selected, 0.3),
 					},
 					"&:active": {
-						backgroundColor: gray[200],
+						// backgroundColor: gray[200],
 					},
 					...theme.applyStyles("dark", {
-						color: gray[50],
-						"&:hover": {
-							backgroundColor: gray[800],
-						},
-						"&:active": {
-							backgroundColor: gray[900],
-						},
+						// color: gray[50],
+						// "&:hover": {
+						// 	backgroundColor: gray[800],
+						// },
+						// "&:active": {
+						// 	backgroundColor: gray[900],
+						// },
 					}),
 				},
 			}),
@@ -104,18 +104,18 @@ export const dataGridCustomizations: DataGridProComponents<Theme> &
 				border: "none",
 				backgroundColor: "transparent",
 				"&:hover": {
-					backgroundColor: gray[100],
+					// backgroundColor: gray[100],
 				},
 				"&:active": {
-					backgroundColor: gray[200],
+					// backgroundColor: gray[200],
 				},
 				...theme.applyStyles("dark", {
-					color: gray[50],
+					// color: gray[50],
 					"&:hover": {
-						backgroundColor: gray[800],
+						// backgroundColor: gray[800],
 					},
 					"&:active": {
-						backgroundColor: gray[900],
+						// backgroundColor: gray[900],
 					},
 				}),
 			}),

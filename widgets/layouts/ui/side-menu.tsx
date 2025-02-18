@@ -8,9 +8,8 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
-import MenuContent from "./menu-content";
-import OptionsMenu from "./options-menu";
-import SelectContent from "./select-content";
+import { LogoOneLine } from "@shared/logo";
+import { MenuContent } from "./menu-content";
 
 const drawerWidth = 240;
 
@@ -42,10 +41,10 @@ export default function SideMenu() {
 				sx={{
 					display: "flex",
 					mt: "calc(var(--template-frame-height, 0px) + 4px)",
-					p: 1.5,
+					p: 3,
 				}}
 			>
-				<SelectContent />
+				<LogoOneLine sx={{ height: "32px" }} />
 			</Box>
 			<Divider />
 			<Box
@@ -101,7 +100,6 @@ export default function SideMenu() {
 								{user.data.username}
 							</Typography>
 						</Box>
-						<OptionsMenu />
 					</>
 				)}
 			</Stack>

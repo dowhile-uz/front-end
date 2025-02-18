@@ -1,12 +1,14 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import type { ThemeOptions } from "@mui/material/styles";
 import React from "react";
+import { ColorSchemeProvider } from "./color-scheme-provider";
+import { type ColorSchemes, colorSchemes } from "./color-schemes";
 import { dataDisplayCustomizations } from "./customizations/data-display";
 import { feedbackCustomizations } from "./customizations/feedback";
 import { inputsCustomizations } from "./customizations/inputs";
 import { navigationCustomizations } from "./customizations/navigation";
 import { surfacesCustomizations } from "./customizations/surfaces";
-import { colorSchemes, shadows, shape, typography } from "./theme-primitives";
+import { shadows, shape, typography } from "./theme-primitives";
 
 interface AppThemeProps {
 	children: React.ReactNode;
@@ -15,6 +17,9 @@ interface AppThemeProps {
 
 export default function AppTheme(props: AppThemeProps) {
 	const { children, themeComponents } = props;
+	const [colorScheme, setColorScheme] =
+		React.useState<ColorSchemes>("gruvbox-dark-hard");
+
 	const theme = React.useMemo(
 		() =>
 			createTheme({
@@ -23,7 +28,7 @@ export default function AppTheme(props: AppThemeProps) {
 					colorSchemeSelector: "data-mui-color-scheme",
 					cssVarPrefix: "template",
 				},
-				colorSchemes, // Recently added in v6 for building light & dark mode app, see https://mui.com/material-ui/customization/palette/#color-schemes
+				colorSchemes: colorSchemes[colorScheme]?.colorSchemes,
 				typography,
 				shadows,
 				shape,
@@ -36,12 +41,16 @@ export default function AppTheme(props: AppThemeProps) {
 					...themeComponents,
 				},
 			}),
-		[themeComponents],
+		[themeComponents, colorScheme],
 	);
 
 	return (
-		<ThemeProvider theme={theme} disableTransitionOnChange>
-			{children}
-		</ThemeProvider>
+		<ColorSchemeProvider
+			value={{ value: colorScheme, setValue: setColorScheme }}
+		>
+			<ThemeProvider theme={theme} disableTransitionOnChange>
+				{children}
+			</ThemeProvider>
+		</ColorSchemeProvider>
 	);
 }

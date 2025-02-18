@@ -2,6 +2,7 @@ import { URL, fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import vike from "vike/plugin";
 import { defineConfig } from "vite";
+import json5Plugin from "vite-plugin-json5";
 
 const isStorybook = process.env.IS_STORYBOOK === "true";
 
@@ -12,6 +13,7 @@ export default defineConfig({
 				prerender: true,
 			}),
 		react({}),
+		json5Plugin({}),
 	],
 	server: {
 		allowedHosts: [".dowhile.uz"],
