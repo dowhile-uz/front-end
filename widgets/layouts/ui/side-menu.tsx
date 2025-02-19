@@ -44,7 +44,7 @@ export default function SideMenu() {
 					p: 3,
 				}}
 			>
-				<LogoOneLine sx={{ height: "32px" }} />
+				<LogoOneLine sx={{ height: "32px" }} component="a" href="/" />
 			</Box>
 			<Divider />
 			<Box

@@ -1,7 +1,7 @@
 import { Box, type BoxProps, useTheme } from "@mui/material";
 import type React from "react";
 
-export const LogoTwoLines: React.FC<BoxProps> = (props) => {
+export const LogoTwoLines: React.FC<BoxProps & { href?: string }> = (props) => {
 	const theme = useTheme();
 	const primary = theme.palette.logo.primary;
 	const secondary = theme.palette.logo.secondary;

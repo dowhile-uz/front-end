@@ -2,7 +2,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import type { ThemeOptions } from "@mui/material/styles";
 import React from "react";
 import { ColorSchemeProvider } from "./color-scheme-provider";
-import { type ColorSchemes, colorSchemes } from "./color-schemes";
+import { type ColorScheme, colorSchemes } from "./color-schemes";
 import { dataDisplayCustomizations } from "./customizations/data-display";
 import { feedbackCustomizations } from "./customizations/feedback";
 import { inputsCustomizations } from "./customizations/inputs";
@@ -15,10 +15,24 @@ interface AppThemeProps {
 	themeComponents?: ThemeOptions["components"];
 }
 
+const initialColorScheme = (() => {
+	const colorScheme = localStorage.getItem("color-scheme");
+	if (Object.keys(colorSchemes).includes(colorScheme ?? "")) {
+		return colorScheme as ColorScheme;
+	}
+
+	return "gruvbox-dark-hard";
+})();
+
 export default function AppTheme(props: AppThemeProps) {
 	const { children, themeComponents } = props;
 	const [colorScheme, setColorScheme] =
-		React.useState<ColorSchemes>("gruvbox-dark-hard");
+		React.useState<ColorScheme>(initialColorScheme);
+
+	const updateColorScheme = (colorScheme: ColorScheme) => {
+		localStorage.setItem("color-scheme", colorScheme);
+		setColorScheme(colorScheme);
+	};
 
 	const theme = React.useMemo(
 		() =>
@@ -46,7 +60,7 @@ export default function AppTheme(props: AppThemeProps) {
 
 	return (
 		<ColorSchemeProvider
-			value={{ value: colorScheme, setValue: setColorScheme }}
+			value={{ value: colorScheme, setValue: updateColorScheme }}
 		>
 			<ThemeProvider theme={theme} disableTransitionOnChange>
 				{children}

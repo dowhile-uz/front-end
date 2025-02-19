@@ -6,15 +6,15 @@ export default function Page() {
 	if (is404) {
 		return (
 			<>
-				<h1>404 Page Not Found</h1>
-				<p>This page could not be found.</p>
+				<h1>404 Sahifa topilmadi</h1>
+				<p>Siz izlagan sahifani topa olmadik :(</p>
 			</>
 		);
 	}
 	return (
 		<>
-			<h1>500 Internal Server Error</h1>
-			<p>Something went wrong.</p>
+			<h1>500 Bizning xatoyimiz</h1>
+			<p>Bu yerda hozircha yordam bera olmaymiz :(</p>
 		</>
 	);
 }

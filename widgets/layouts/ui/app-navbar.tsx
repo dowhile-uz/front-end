@@ -5,9 +5,9 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { tabsClasses } from "@mui/material/Tabs";
 import MuiToolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import { ColorModeIconDropdown } from "@shared/theme";
+import { LogoOneLine } from "@shared/logo";
+import { ColorSchemePicker } from "@shared/theme";
 import React from "react";
 import MenuButton from "./menu-button";
 import SideMenuMobile from "./side-menu-mobile";
@@ -63,16 +63,9 @@ export default function AppNavbar() {
 						spacing={1}
 						sx={{ justifyContent: "center", mr: "auto" }}
 					>
-						<CustomIcon />
-						<Typography
-							variant="h4"
-							component="h1"
-							sx={{ color: "text.primary" }}
-						>
-							Dashboard
-						</Typography>
+						<LogoOneLine sx={{ height: "20px" }} component="a" href="/" />
 					</Stack>
-					<ColorModeIconDropdown />
+					<ColorSchemePicker />
 					<MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
 						<MenuRoundedIcon />
 					</MenuButton>

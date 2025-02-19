@@ -1,9 +1,9 @@
 import React from "react";
-import type { ColorSchemes } from "./color-schemes";
+import type { ColorScheme } from "./color-schemes";
 
 const context = React.createContext<{
-	value: ColorSchemes;
-	setValue(colorScheme: ColorSchemes): void;
+	value: ColorScheme;
+	setValue(colorScheme: ColorScheme): void;
 }>({ value: "gruvbox-dark-hard", setValue: () => {} });
 
 export const ColorSchemeProvider = context.Provider;

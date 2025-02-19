@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
-import { ColorModeIconDropdown } from "@shared/theme";
-import NavbarBreadcrumbs from "./navbar-breadcrumbs";
+import { ColorSchemePicker } from "@shared/theme";
 
 export default function Header() {
 	return (
@@ -16,12 +15,12 @@ export default function Header() {
 			}}
 			spacing={2}
 		>
-			<NavbarBreadcrumbs />
+			<div />
 			<Stack direction="row" sx={{ gap: 1 }}>
 				{/* <MenuButton showBadge aria-label="Open notifications"> */}
 				{/* 	<NotificationsRoundedIcon /> */}
 				{/* </MenuButton> */}
-				<ColorModeIconDropdown />
+				<ColorSchemePicker />
 			</Stack>
 		</Stack>
 	);

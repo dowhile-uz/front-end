@@ -1,11 +1,21 @@
-import { LogoutOutlined, StylusOutlined } from "@mui-symbols-material/w400";
-// import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
-// import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-// import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
-// import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-// import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
-// import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-// import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import {
+	BookmarksOutlined,
+	DictionaryOutlined,
+	DrawOutlined,
+	GroupOutlined,
+	GroupsOutlined,
+	InfoOutlined,
+	LabelOutlined,
+	LibraryBooksOutlined,
+	LogoutOutlined,
+	MailOutlined,
+	PersonOutlined,
+	ReceiptLongOutlined,
+	SettingsOutlined,
+	SpellcheckOutlined,
+	StylusOutlined,
+} from "@mui-symbols-material/w400";
+import { Divider } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -18,9 +28,59 @@ export const MenuContent: React.FC = () => {
 	return (
 		<Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
 			<List dense>
-				<MenuLink icon={<StylusOutlined />} href="/editor" label="Daftar" />
+				<MenuLink icon={<ReceiptLongOutlined />} href="/" label="Bosh sahifa" />
+				<MenuLink icon={<InfoOutlined />} href="/about" label="Loyiha haqida" />
+				<Divider sx={{ my: 2 }} />
+				<MenuLabel label="Izlanish bo‘limi" />
+				<MenuLink
+					icon={<LibraryBooksOutlined />}
+					href="/tutorials"
+					label="Darsliklar"
+				/>
+				<MenuLink icon={<LabelOutlined />} href="/topics" label="Mavzular" />
+				<MenuLink
+					icon={<GroupsOutlined />}
+					href="/work-groups"
+					label="O‘quv guruhlari"
+				/>
+				<MenuLink
+					icon={<GroupOutlined />}
+					href="/users"
+					label="Barcha foydalanuvchilar"
+				/>
 			</List>
 			<List dense>
+				<MenuLabel label="Yaratish bo‘limi" />
+				<MenuLink
+					icon={<SpellcheckOutlined />}
+					href="/spell-check"
+					label="Imlo tekshiruvi"
+				/>
+				<MenuLink
+					icon={<DictionaryOutlined />}
+					href="/dictionary"
+					label="Lug‘at"
+				/>
+				<MenuLink icon={<DrawOutlined />} href="/draw" label="Chizmalar" />
+				<MenuLink icon={<StylusOutlined />} href="/editor" label="Daftar" />
+				<Divider sx={{ my: 2 }} />
+				<MenuLabel label="Shaxsiy bo‘lim" />
+				<MenuLink icon={<MailOutlined />} href="/messages" label="Xabarnoma" />
+				<MenuLink
+					icon={<BookmarksOutlined />}
+					href="/bookmarks"
+					label="Yoqtirganlarim"
+				/>
+				<MenuLink
+					icon={<PersonOutlined />}
+					href="/profile"
+					label="Mening sahifam"
+				/>
+				<MenuLink
+					icon={<SettingsOutlined />}
+					href="/settings"
+					label="Sozlamalar"
+				/>
 				<MenuLink icon={<LogoutOutlined />} href="/logout" label="Chiqish" />
 			</List>
 		</Stack>
@@ -36,13 +96,25 @@ export const MenuLink: React.FC<{
 	return (
 		<ListItem
 			disablePadding
-			sx={{ display: "block" }}
+			sx={{ display: "block", color: "text.primary" }}
 			component="a"
 			href={href}
 		>
 			<ListItemButton selected={selected}>
 				<ListItemIcon>{icon}</ListItemIcon>
 				<ListItemText primary={label} />
+			</ListItemButton>
+		</ListItem>
+	);
+};
+
+export const MenuLabel: React.FC<{
+	label: string;
+}> = ({ label }) => {
+	return (
+		<ListItem disablePadding sx={{ display: "block" }}>
+			<ListItemButton>
+				<ListItemText primary={label} sx={{ opacity: 0.7 }} />
 			</ListItemButton>
 		</ListItem>
 	);

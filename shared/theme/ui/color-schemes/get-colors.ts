@@ -77,12 +77,21 @@ export const getColors = (
 					secondary: c.find('colors."editor.foreground"'),
 				},
 				background: {
-					default: c.find('colors."sideBar.background"'),
+					default: c.find(
+						'colors."editor.background"',
+						'colors."sideBar.background"',
+					),
 					paper: c.find('colors."sideBar.background"'),
 				},
 				text: {
-					primary: c.find('colors."editor.foreground"'),
-					secondary: c.find('colors."input.foreground"'),
+					primary: c.find(
+						'colors."editor.foreground"',
+						'colors."menu.foreground"',
+					),
+					secondary: c.find(
+						'colors."input.foreground"',
+						'colors."editor.foreground"',
+					),
 					//   warning: orange[400],
 				},
 				// action: {
